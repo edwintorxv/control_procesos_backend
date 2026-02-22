@@ -146,7 +146,7 @@ public class ClienteServiceImpl implements IClienteService {
         destinoCliente.setRepresentante(origenCliente.getRepresentante());
         destinoCliente.setTelefono(origenCliente.getTelefono());
         destinoCliente.setEstado(origenCliente.getEstado());
-        //destinoCliente.setCiudadMunicipio(origenCliente.getCiudadMunicipio());
+        destinoCliente.setCiudadMunicipio(origenCliente.getCiudadMunicipio());
 
     }
 

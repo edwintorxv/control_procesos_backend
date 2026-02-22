@@ -31,7 +31,7 @@ public class Cliente {
     @JoinColumn(name = "fk_estado")
     private Estado estado;
 
-    /*@ManyToOne
+    @ManyToOne
     @JoinColumn(name = "fk_ciudad_municipio")
-    private CiudadMunicipio ciudadMunicipio;*/
+    private CiudadMunicipio ciudadMunicipio;
 }

@@ -58,7 +58,7 @@ public class EmpleadoLaboralServiceImpl implements IEmpleadoLaboralService {
 
         try {
             List<EmpleadoLaboral> lstEmpleadoLaboral = iEmpleadoLaboralRepository.empleadoLaboralPorEmpleado(idEmpleado);
-
+            System.out.print("Paso sin validar el breakpoint");
             if (!lstEmpleadoLaboral.isEmpty()) {
                 empleadoLaboralResponseRest.getEmpleadoLaboralResponse().setLstEmpleadoLaboral(lstEmpleadoLaboral);
                 empleadoLaboralResponseRest.setMetadata(MensajesConstantes.RESPUESTA_OK, MensajesConstantes.RESPUESTA_CODIGO_OK,
