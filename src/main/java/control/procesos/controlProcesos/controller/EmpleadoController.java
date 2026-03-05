@@ -38,4 +38,10 @@ public class EmpleadoController {
         return empleadoResponseRest;
     }
 
+    @GetMapping("/empleado/busquedaPorId/{idEmpleado}")
+    public ResponseEntity<EmpleadoResponseRest> buscarEmpleadoPorId(@PathVariable Integer idEmpleado){
+        ResponseEntity<EmpleadoResponseRest> empleadoResponseRest = iEmpleadoService.buscarEmpleadoPorId(idEmpleado);
+        return empleadoResponseRest;
+    }
+
 }

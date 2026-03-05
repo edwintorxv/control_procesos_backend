@@ -118,6 +118,31 @@ public class EmpleadoServiceImpl implements IEmpleadoService {
         }
     }
 
+    @Override
+    public ResponseEntity<EmpleadoResponseRest> buscarEmpleadoPorId(Integer idEmpleado) {
+        EmpleadoResponseRest empleadoResponseRest = new EmpleadoResponseRest();
+
+        try {
+            Optional<Empleado> optEmpleado = iEmpleadoRepository.findById(idEmpleado);
+
+            if (optEmpleado.isPresent()) {
+                empleadoResponseRest.getEmpleadoResponse().setEmpleado(optEmpleado.get());
+                empleadoResponseRest.setMetadata(MensajesConstantes.RESPUESTA_OK, MensajesConstantes.RESPUESTA_CODIGO_OK,
+                        MensajesConstantes.RESPUESTA_BUSQUEDA_OK);
+                return new ResponseEntity<EmpleadoResponseRest>(empleadoResponseRest, HttpStatus.OK);
+            } else {
+                empleadoResponseRest.setMetadata(MensajesConstantes.RESPUESTA_FALLIDA, MensajesConstantes.RESPUESTA_CODIGO_ERROR,
+                        MensajesConstantes.RESPUESTA_DESCRIPCION_FALLIDA);
+                return new ResponseEntity<EmpleadoResponseRest>(empleadoResponseRest, HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            empleadoResponseRest.setMetadata(MensajesConstantes.RESPUESTA_FALLIDA, MensajesConstantes.RESPUESTA_CODIGO_ERROR,
+                    MensajesConstantes.RESPUESTA_DESCRIPCION_FALLIDA);
+            return new ResponseEntity<EmpleadoResponseRest>(empleadoResponseRest, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
     private void mapearDatosEmpleado(Empleado empleadoDestino, Empleado empleadoFuente) {
 
         empleadoDestino.setNombre(empleadoFuente.getNombre());

@@ -8,8 +8,8 @@ public enum Directorios {
     DOCUMENTO_ACADEMICO("Documento_academico"),
     DOCUMENTO_INGRESO("Documento_ingreso"),
     DOCUMENTO_CONFIABILIDAD("Documento_confiabilidad"),
-    //UNIDAD_ALMACENAMIENTO("D://Storage");
-    UNIDAD_ALMACENAMIENTO("/media/toshiba/Storage");
+    UNIDAD_ALMACENAMIENTO("C://Storage");
+    //UNIDAD_ALMACENAMIENTO("/media/toshiba/Storage");
 
 
     private final String parametroDirectorio;

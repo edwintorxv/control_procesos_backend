@@ -15,4 +15,6 @@ public interface IEmpleadoDocumentoService {
 
     public ResponseEntity<EmpleadoDocumentoResponseRest> lstEmpleadoDocumentoPorEmpleado(Integer idEmpleado);
 
+    public ResponseEntity<EmpleadoDocumentoResponseRest> editarEmpleadoDocumentoPorId(Integer idDocumento, String rutaArchivo);
+
 }
