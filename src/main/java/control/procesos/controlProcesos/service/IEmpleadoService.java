@@ -13,4 +13,6 @@ public interface IEmpleadoService {
     public ResponseEntity<EmpleadoResponseRest> buscarEmpleadoPorCedula(String cedula);
 
     public ResponseEntity<EmpleadoResponseRest> editarEmpleado(Empleado empleado, Integer idEmpleado);
+
+    public ResponseEntity<EmpleadoResponseRest> buscarEmpleadoPorId(Integer idEmpleado);
 }

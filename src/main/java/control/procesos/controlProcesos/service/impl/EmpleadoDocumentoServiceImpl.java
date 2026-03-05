@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,8 +62,14 @@ public class EmpleadoDocumentoServiceImpl implements IEmpleadoDocumentoService {
             mapearDataDocumentoEmpleado(crearEmpleadoDocumento, empleadoDocumento);
             iEmpleadoDocumentoRepository.save(crearEmpleadoDocumento);
 
-            empleadoDocumentoResponseRest.setMetadata(MensajesConstantes.RESPUESTA_CREACION_OK, MensajesConstantes.RESPUESTA_CODIGO_OK,
+            empleadoDocumentoResponseRest.setMetadata(MensajesConstantes.RESPUESTA_CREACION_OK,
+                    MensajesConstantes.RESPUESTA_CODIGO_OK,
                     MensajesConstantes.RESPUESTA_CREACION_OK);
+
+            empleadoDocumentoResponseRest
+                    .getEmpleadoDocumentoResponse()
+                    .setEmpleadoDocumento(crearEmpleadoDocumento);
+
             return new ResponseEntity<EmpleadoDocumentoResponseRest>(empleadoDocumentoResponseRest, HttpStatus.OK);
         } catch (Exception e) {
             empleadoDocumentoResponseRest.setMetadata(MensajesConstantes.RESPUESTA_CREACION_FALLIDA, MensajesConstantes.RESPUESTA_CODIGO_ERROR,
@@ -118,6 +125,58 @@ public class EmpleadoDocumentoServiceImpl implements IEmpleadoDocumentoService {
             empleadoDocumentoResponseRest.setMetadata(MensajesConstantes.RESPUESTA_FALLIDA, MensajesConstantes.RESPUESTA_CODIGO_ERROR,
                     MensajesConstantes.RESPUESTA_DESCRIPCION_FALLIDA);
             return new ResponseEntity<EmpleadoDocumentoResponseRest>(empleadoDocumentoResponseRest, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public ResponseEntity<EmpleadoDocumentoResponseRest> editarEmpleadoDocumentoPorId(Integer idDocumento, String rutaArchivo) {
+
+        EmpleadoDocumentoResponseRest empleadoDocumentoResponseRest = new EmpleadoDocumentoResponseRest();
+
+        try {
+
+            Optional<EmpleadoDocumento> optionalEmpleadoDocumento = iEmpleadoDocumentoRepository.findById(idDocumento);
+
+            if (optionalEmpleadoDocumento.isPresent()) {
+
+                EmpleadoDocumento empleadoDocumentoExiste = optionalEmpleadoDocumento.get();
+
+                empleadoDocumentoExiste.setUrlArchivo(rutaArchivo);
+
+                iEmpleadoDocumentoRepository.save(empleadoDocumentoExiste);
+
+                empleadoDocumentoResponseRest.setMetadata(
+                        MensajesConstantes.RESPUESTA_OK,
+                        MensajesConstantes.RESPUESTA_CODIGO_OK,
+                        MensajesConstantes.RESPUESTA_EDICION_OK
+                );
+
+                empleadoDocumentoResponseRest
+                        .getEmpleadoDocumentoResponse()
+                        .setEmpleadoDocumento(empleadoDocumentoExiste);
+
+                return new ResponseEntity<>(empleadoDocumentoResponseRest, HttpStatus.OK);
+
+            } else {
+
+                empleadoDocumentoResponseRest.setMetadata(
+                        MensajesConstantes.RESPUESTA_FALLIDA,
+                        MensajesConstantes.RESPUESTA_CODIGO_ERROR,
+                        "Documento no encontrado"
+                );
+
+                return new ResponseEntity<>(empleadoDocumentoResponseRest, HttpStatus.NOT_FOUND);
+            }
+
+        } catch (Exception e) {
+
+            empleadoDocumentoResponseRest.setMetadata(
+                    MensajesConstantes.RESPUESTA_FALLIDA,
+                    MensajesConstantes.RESPUESTA_CODIGO_ERROR,
+                    e.getMessage()
+            );
+
+            return new ResponseEntity<>(empleadoDocumentoResponseRest, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

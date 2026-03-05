@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface IDocumentoMaestroRepository extends JpaRepository<DocumentoMaestro, Integer> {
 
-    @Query(value = "SELECT * FROM documento_maestro dm WHERE dm.fk_tipo_documento =:idTipoDocumento", nativeQuery = true)
-    List<DocumentoMaestro> lstDocumentoMaestroPorTipoDocumento(Integer idTipoDocumento);
+    @Query(value = "SELECT * FROM documento_maestro dm WHERE dm.fk_tipo_documento IN (:idsTipoDocumento)", nativeQuery = true)
+    List<DocumentoMaestro> lstDocumentoMaestroPorTipoDocumento(List<Integer> idsTipoDocumento);
 
 }

@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/controlProcesos")
 public class DocumentoMaestroController {
@@ -18,7 +20,7 @@ public class DocumentoMaestroController {
     private IDocumentoMaestroService iDocumentoMaestroService;
 
     @GetMapping("/documentos/{idTipoDocumento}")
-    public ResponseEntity<DocumentoMaestroResponseRest> obtenerDocumentos(@PathVariable Integer idTipoDocumento){
+    public ResponseEntity<DocumentoMaestroResponseRest> obtenerDocumentos(@PathVariable List<Integer> idTipoDocumento){
         ResponseEntity<DocumentoMaestroResponseRest> responseDocumentoMaestro = iDocumentoMaestroService.obtenerDocumentos(idTipoDocumento);
         return responseDocumentoMaestro;
     }

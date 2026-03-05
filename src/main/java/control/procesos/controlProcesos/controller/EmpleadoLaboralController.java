@@ -28,12 +28,13 @@ public class EmpleadoLaboralController {
         return empleadoLaboralResponseRest;
     }
 
-    @PutMapping("/empleadoLaboral/{idEmpleado}")
-    public ResponseEntity<EmpleadoLaboralResponseRest> editarEmpleadoLaboral(@RequestBody EmpleadoLaboral empleadoLaboral,
-                                                                             @PathVariable Integer idEmpleadoLaboral) {
-        ResponseEntity<EmpleadoLaboralResponseRest> empleadoLaboralResponseRest =
-                iEmpleadoLaboralService.editarEmpleadolaboral(empleadoLaboral, idEmpleadoLaboral);
-        return empleadoLaboralResponseRest;
+    @PutMapping("/empleadoLaboral/{idEmpleadoLaboral}")
+    public ResponseEntity<EmpleadoLaboralResponseRest> editarEmpleadoLaboral(
+            @RequestBody EmpleadoLaboral empleadoLaboral,
+            @PathVariable Integer idEmpleadoLaboral) {
+
+        return iEmpleadoLaboralService.editarEmpleadolaboral(
+                empleadoLaboral, idEmpleadoLaboral);
     }
 
     @DeleteMapping("/empleadoLaboral/{idEmpleadoLaboral}")
