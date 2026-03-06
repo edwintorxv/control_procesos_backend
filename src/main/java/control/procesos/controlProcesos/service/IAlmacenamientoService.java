@@ -8,8 +8,8 @@ public interface IAlmacenamientoService {
 
     String crearCarpeta(String nombreCarpeta);
 
-    public ResponseEntity<ArchivoResponseRest> cargarArchivo(String ubicacion, MultipartFile archivo);
+    ResponseEntity<ArchivoResponseRest> cargarArchivo(String ubicacion, MultipartFile archivo);
 
-
+    ResponseEntity<byte[]> verArchivo(String ruta, String nombreArchivo);
 
 }

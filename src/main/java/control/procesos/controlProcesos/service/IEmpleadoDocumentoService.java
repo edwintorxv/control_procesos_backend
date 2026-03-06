@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 public interface IEmpleadoDocumentoService {
 
-    public ResponseEntity<EmpleadoDocumentoResponseRest> lstEmpleadoDocumento();
+    public ResponseEntity<EmpleadoDocumentoResponseRest> buscarEmpleadoDocumentoPorId(Integer idDocumento);
 
     public ResponseEntity<EmpleadoDocumentoResponseRest> crearEmpleadoDocumento(EmpleadoDocumento empleadoDocumento);
 
