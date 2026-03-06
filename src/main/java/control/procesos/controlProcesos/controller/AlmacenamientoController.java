@@ -1,7 +1,9 @@
 package control.procesos.controlProcesos.controller;
 
+import control.procesos.controlProcesos.response.ArchivoResponseRest;
 import control.procesos.controlProcesos.response.CarpetaResponse;
 import control.procesos.controlProcesos.service.IAlmacenamientoService;
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -29,9 +31,11 @@ public class AlmacenamientoController {
     }
 
     @PostMapping("/cargarArchivo")
-    public String cargarArchivo(@RequestParam String ruta, @RequestParam("archivo") MultipartFile archivo) {
-        String response = iAlmacenamientoService.cargarArchivo(ruta, archivo);
-        return response;
+    public ResponseEntity<ArchivoResponseRest> cargarArchivo(
+            @RequestParam String ruta,
+            @RequestParam("archivo") MultipartFile archivo) {
+        ResponseEntity<ArchivoResponseRest> archivoResponse = iAlmacenamientoService.cargarArchivo(ruta, archivo);
+        return archivoResponse;
     }
 
     @GetMapping("/descargarArchivo")
@@ -55,6 +59,14 @@ public class AlmacenamientoController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @GetMapping("/verArchivo")
+    public ResponseEntity<byte[]> verArchivo(
+            @RequestParam String ruta,
+            @RequestParam String nombreArchivo) {
+
+        return iAlmacenamientoService.verArchivo(ruta, nombreArchivo);
     }
 
 

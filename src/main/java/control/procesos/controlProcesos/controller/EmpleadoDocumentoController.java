@@ -1,7 +1,9 @@
 package control.procesos.controlProcesos.controller;
 
+import control.procesos.controlProcesos.entity.Empleado;
 import control.procesos.controlProcesos.entity.EmpleadoDocumento;
 import control.procesos.controlProcesos.response.EmpleadoDocumentoResponseRest;
+import control.procesos.controlProcesos.response.EmpleadoResponseRest;
 import control.procesos.controlProcesos.service.IEmpleadoDocumentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,28 +16,40 @@ public class EmpleadoDocumentoController {
     @Autowired
     private IEmpleadoDocumentoService iEmpleadoDocumentoService;
 
-    @GetMapping("/documentoEmpleado")
-    public ResponseEntity<EmpleadoDocumentoResponseRest> listadoEmpladoDocumento() {
-        ResponseEntity<EmpleadoDocumentoResponseRest> empleadoDocumentoResponseRest = iEmpleadoDocumentoService.lstEmpleadoDocumento();
+    @GetMapping("/documentoEmpleado/documento/{idDocumento}")
+    public ResponseEntity<EmpleadoDocumentoResponseRest> buscarEmpladoDocumentoPorId(@PathVariable Integer idDocumento) {
+        ResponseEntity<EmpleadoDocumentoResponseRest> empleadoDocumentoResponseRest =
+                iEmpleadoDocumentoService.buscarEmpleadoDocumentoPorId(idDocumento);
         return empleadoDocumentoResponseRest;
     }
 
     @PostMapping("/documentoEmpleado")
     public ResponseEntity<EmpleadoDocumentoResponseRest> crearEmpleadoDocumento(@RequestBody EmpleadoDocumento empleadoDocumento) {
-        ResponseEntity<EmpleadoDocumentoResponseRest> empleadoDocumentoResponseRest = iEmpleadoDocumentoService.crearEmpleadoDocumento(empleadoDocumento);
+        ResponseEntity<EmpleadoDocumentoResponseRest> empleadoDocumentoResponseRest =
+                iEmpleadoDocumentoService.crearEmpleadoDocumento(empleadoDocumento);
         return empleadoDocumentoResponseRest;
     }
 
     @DeleteMapping("/documentoEmpleado/{idEmpleadoDocumento}")
     public ResponseEntity<EmpleadoDocumentoResponseRest> eliminarEmpleadoDocumento(@PathVariable Integer idEmpleadoDocumento) {
-        ResponseEntity<EmpleadoDocumentoResponseRest> empleadoDocumentoResponseRest = iEmpleadoDocumentoService.eliminarEmpleadoDocumento(idEmpleadoDocumento);
+        ResponseEntity<EmpleadoDocumentoResponseRest> empleadoDocumentoResponseRest =
+                iEmpleadoDocumentoService.eliminarEmpleadoDocumento(idEmpleadoDocumento);
         return empleadoDocumentoResponseRest;
     }
 
     @GetMapping("documentoEmpleado/empleado/{idEmpleado}")
     public ResponseEntity<EmpleadoDocumentoResponseRest> lstEmpleadoDocumentoPorEmpleado(@PathVariable Integer idEmpleado) {
-        ResponseEntity<EmpleadoDocumentoResponseRest> empleadoDocumentoResponseRest = iEmpleadoDocumentoService.lstEmpleadoDocumentoPorEmpleado(idEmpleado);
+        ResponseEntity<EmpleadoDocumentoResponseRest> empleadoDocumentoResponseRest =
+                iEmpleadoDocumentoService.lstEmpleadoDocumentoPorEmpleado(idEmpleado);
         return empleadoDocumentoResponseRest;
+    }
+
+    @PutMapping("documentoEmpleado/{idDocumento}")
+    public ResponseEntity<EmpleadoDocumentoResponseRest> editarEmpleadoDocumento(@PathVariable Integer idDocumento,
+                                                                                 @RequestParam String rutaArchivo) {
+        ResponseEntity<EmpleadoDocumentoResponseRest> empleadoResponseRest =
+                iEmpleadoDocumentoService.editarEmpleadoDocumentoPorId(idDocumento, rutaArchivo);
+        return empleadoResponseRest;
     }
 
 }

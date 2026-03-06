@@ -7,12 +7,14 @@ import org.springframework.stereotype.Service;
 
 public interface IEmpleadoDocumentoService {
 
-    public ResponseEntity<EmpleadoDocumentoResponseRest> lstEmpleadoDocumento();
+    public ResponseEntity<EmpleadoDocumentoResponseRest> buscarEmpleadoDocumentoPorId(Integer idDocumento);
 
     public ResponseEntity<EmpleadoDocumentoResponseRest> crearEmpleadoDocumento(EmpleadoDocumento empleadoDocumento);
 
     public ResponseEntity<EmpleadoDocumentoResponseRest> eliminarEmpleadoDocumento(Integer idDocumentoEmpleado);
 
     public ResponseEntity<EmpleadoDocumentoResponseRest> lstEmpleadoDocumentoPorEmpleado(Integer idEmpleado);
+
+    public ResponseEntity<EmpleadoDocumentoResponseRest> editarEmpleadoDocumentoPorId(Integer idDocumento, String rutaArchivo);
 
 }

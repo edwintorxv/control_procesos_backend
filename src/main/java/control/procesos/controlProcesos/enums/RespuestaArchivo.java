@@ -4,7 +4,8 @@ public enum RespuestaArchivo {
 
     LIMITE_SUPERADO("El archivo es muy grande"),
     FORMATO_PDF(".pdf"),
-    FORMATO_INCORRECTO("El archivo seleccionado %s, no es del formato esperado");
+    FORMATO_INCORRECTO("El archivo seleccionado %s, no es del formato esperado"),
+    CARGA_EXITOSA("Archivo cargado correctamente");
 
     private final String descripcion;
 

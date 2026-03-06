@@ -19,7 +19,7 @@ public class DocumentoMaestroServiceImpl implements IDocumentoMaestroService {
     private IDocumentoMaestroRepository iDocumentoMaestroRepository;
 
     @Override
-    public ResponseEntity<DocumentoMaestroResponseRest> obtenerDocumentos(Integer idTipoDocumento) {
+    public ResponseEntity<DocumentoMaestroResponseRest> obtenerDocumentos(List<Integer> idTipoDocumento) {
         DocumentoMaestroResponseRest documentoMaestroResponseRest = new DocumentoMaestroResponseRest();
         try {
             List<DocumentoMaestro> lstDocumentoMaestro = iDocumentoMaestroRepository.lstDocumentoMaestroPorTipoDocumento(idTipoDocumento);
