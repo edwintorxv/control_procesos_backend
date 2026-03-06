@@ -16,10 +16,10 @@ public class EmpleadoDocumentoController {
     @Autowired
     private IEmpleadoDocumentoService iEmpleadoDocumentoService;
 
-    @GetMapping("/documentoEmpleado")
-    public ResponseEntity<EmpleadoDocumentoResponseRest> listadoEmpladoDocumento() {
+    @GetMapping("/documentoEmpleado/documento/{idDocumento}")
+    public ResponseEntity<EmpleadoDocumentoResponseRest> buscarEmpladoDocumentoPorId(@PathVariable Integer idDocumento) {
         ResponseEntity<EmpleadoDocumentoResponseRest> empleadoDocumentoResponseRest =
-                iEmpleadoDocumentoService.lstEmpleadoDocumento();
+                iEmpleadoDocumentoService.buscarEmpleadoDocumentoPorId(idDocumento);
         return empleadoDocumentoResponseRest;
     }
 

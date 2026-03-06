@@ -5,6 +5,7 @@ import control.procesos.controlProcesos.enums.Directorios;
 import control.procesos.controlProcesos.enums.RespuestaArchivo;
 import control.procesos.controlProcesos.response.ArchivoResponseRest;
 import control.procesos.controlProcesos.service.IAlmacenamientoService;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -79,6 +80,33 @@ public class AlmacenamientoServiceImpl implements IAlmacenamientoService {
             );
 
             return new ResponseEntity<>(archivoResponseRest, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public ResponseEntity<byte[]> verArchivo(String ruta, String nombreArchivo) {
+        try {
+            Path rutaArchivo = Paths.get(ruta, nombreArchivo);
+
+            if (!Files.exists(rutaArchivo)) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+
+            byte[] data = Files.readAllBytes(rutaArchivo);
+            HttpHeaders headers = new HttpHeaders();
+            String contentType = Files.probeContentType(rutaArchivo);
+
+            if (contentType == null) {
+                contentType = "application/octet-stream";
+            }
+
+            headers.add(HttpHeaders.CONTENT_TYPE, contentType);
+
+            return new ResponseEntity<>(data, headers, HttpStatus.OK);
+
+        } catch (Exception e) {
+
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

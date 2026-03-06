@@ -1,5 +1,6 @@
 package control.procesos.controlProcesos.service.impl;
 
+import ch.qos.logback.core.rolling.helper.IntegerTokenConverter;
 import control.procesos.controlProcesos.constants.MensajesConstantes;
 import control.procesos.controlProcesos.entity.EmpleadoDocumento;
 import control.procesos.controlProcesos.repository.IEmpleadoDocumentoRepository;
@@ -21,18 +22,18 @@ public class EmpleadoDocumentoServiceImpl implements IEmpleadoDocumentoService {
     private IEmpleadoDocumentoRepository iEmpleadoDocumentoRepository;
 
     @Override
-    public ResponseEntity<EmpleadoDocumentoResponseRest> lstEmpleadoDocumento() {
+    public ResponseEntity<EmpleadoDocumentoResponseRest> buscarEmpleadoDocumentoPorId(Integer idDocumento) {
         EmpleadoDocumentoResponseRest empleadoDocumentoResponseRest = new EmpleadoDocumentoResponseRest();
         try {
-            List<EmpleadoDocumento> lstEmpleadoDocumento = iEmpleadoDocumentoRepository.findAll();
+            Optional<EmpleadoDocumento> optEmpleadoDocumento = iEmpleadoDocumentoRepository.findById(idDocumento);
 
-            if (!lstEmpleadoDocumento.isEmpty()) {
-                empleadoDocumentoResponseRest.getEmpleadoDocumentoResponse().setLstEmpleadoDocumento(lstEmpleadoDocumento);
-
+            if (optEmpleadoDocumento.isPresent()){
+                empleadoDocumentoResponseRest.getEmpleadoDocumentoResponse().setEmpleadoDocumento(optEmpleadoDocumento.get());
                 empleadoDocumentoResponseRest.setMetadata(MensajesConstantes.RESPUESTA_OK, MensajesConstantes.RESPUESTA_CODIGO_OK,
                         MensajesConstantes.RESPUESTA_DESCRIPCION_OK);
                 return new ResponseEntity<EmpleadoDocumentoResponseRest>(empleadoDocumentoResponseRest, HttpStatus.OK);
-            } else {
+
+            }else{
                 empleadoDocumentoResponseRest.setMetadata(MensajesConstantes.RESPUESTA_FALLIDA, MensajesConstantes.RESPUESTA_CODIGO_ERROR,
                         MensajesConstantes.RESPUESTA_DESCRIPCION_FALLIDA);
                 return new ResponseEntity<EmpleadoDocumentoResponseRest>(empleadoDocumentoResponseRest, HttpStatus.BAD_REQUEST);
