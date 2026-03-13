@@ -126,6 +126,37 @@ public class ProcesoConfiabilidadServiceImpl implements IProcesoConfiabilidadSer
         }
     }
 
+    @Override
+    public ResponseEntity<ProcesoConfiabilidadResponseRest> buscarProcesoPorId(Integer idProceso) {
+        ProcesoConfiabilidadResponseRest procesoConfiabilidadResponseRest = new ProcesoConfiabilidadResponseRest();
+        try {
+
+            Optional<ProcesoConfiabilidad> optProcescoConfiabilidad = iProcesoConfiabilidadRepository.findById(idProceso);
+
+            if (optProcescoConfiabilidad.isPresent()){
+                procesoConfiabilidadResponseRest.getProcesoConfiabilidadResponse().setProcesoConfiabilidad(optProcescoConfiabilidad.get());
+                procesoConfiabilidadResponseRest.setMetadata(
+                        MensajesConstantes.RESPUESTA_OK,
+                        MensajesConstantes.RESPUESTA_CODIGO_OK,
+                        MensajesConstantes.RESPUESTA_DESCRIPCION_OK);
+
+                return new ResponseEntity<ProcesoConfiabilidadResponseRest>(procesoConfiabilidadResponseRest, HttpStatus.OK);
+
+            }else{
+                procesoConfiabilidadResponseRest.setMetadata(
+                        MensajesConstantes.RESPUESTA_FALLIDA,
+                        MensajesConstantes.RESPUESTA_CODIGO_ERROR,
+                        MensajesConstantes.RESPUESTA_DESCRIPCION_FALLIDA);
+
+                return new ResponseEntity<ProcesoConfiabilidadResponseRest>(procesoConfiabilidadResponseRest, HttpStatus.BAD_REQUEST);
+            }
+        } catch (Exception e) {
+            procesoConfiabilidadResponseRest.setMetadata(MensajesConstantes.RESPUESTA_CODIGO_ERROR, MensajesConstantes.RESPUESTA_FALLIDA,
+                    MensajesConstantes.RESPUESTA_DESCRIPCION_FALLIDA);
+            return new ResponseEntity<ProcesoConfiabilidadResponseRest>(procesoConfiabilidadResponseRest, HttpStatus.BAD_REQUEST);
+        }
+    }
+
     private void dataProcesoConfiabilidad(ProcesoConfiabilidad procesoConfiabilidadDestino, ProcesoConfiabilidad procesoConfiabilidadOrigen) {
 
         procesoConfiabilidadDestino.setCliente(procesoConfiabilidadOrigen.getCliente());
@@ -143,6 +174,8 @@ public class ProcesoConfiabilidadServiceImpl implements IProcesoConfiabilidadSer
         procesoConfiabilidadDestino.setFechaCreacion(procesoConfiabilidadOrigen.getFechaCreacion());
         procesoConfiabilidadDestino.setUrlArchivo(procesoConfiabilidadOrigen.getUrlArchivo());
         procesoConfiabilidadDestino.setNombreArchivo(procesoConfiabilidadOrigen.getNombreArchivo());
+        procesoConfiabilidadDestino.setDireccion(procesoConfiabilidadOrigen.getDireccion());
+        procesoConfiabilidadDestino.setCiudadMunicipio(procesoConfiabilidadOrigen.getCiudadMunicipio());
 
     }
 
