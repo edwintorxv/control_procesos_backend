@@ -27,5 +27,8 @@ public interface IProcesoConfiabilidadRepository extends JpaRepository<ProcesoCo
     @Query(value = "SELECT * FROM proceso_confiabilidad WHERE fk_cliente =:idCliente", nativeQuery = true)
     List<ProcesoConfiabilidad> lstProcesoConfiabilidadCliente(@Param("idCliente") Integer idCliente);
 
+    @Query(value = "SELECT * FROM proceso_confiabilidad WHERE id =:idProceso", nativeQuery = true)
+    List<ProcesoConfiabilidad> lstUrlProceso(@Param("idProceso") Integer idProceso);
+
 
 }

@@ -71,7 +71,9 @@ public class EmpleadoServiceImpl implements IEmpleadoService {
 
             if (optEmpleado.isPresent()) {
                 empleadoResponseRest.getEmpleadoResponse().setEmpleado(optEmpleado.get());
-                empleadoResponseRest.setMetadata(MensajesConstantes.RESPUESTA_OK, MensajesConstantes.RESPUESTA_CODIGO_OK,
+                empleadoResponseRest.setMetadata(
+                        MensajesConstantes.RESPUESTA_OK,
+                        MensajesConstantes.RESPUESTA_CODIGO_OK,
                         MensajesConstantes.RESPUESTA_BUSQUEDA_OK);
                 return new ResponseEntity<EmpleadoResponseRest>(empleadoResponseRest, HttpStatus.OK);
             } else {

@@ -14,4 +14,6 @@ public interface IClienteService {
 
     public ResponseEntity<ClienteResponseRest> eliminarCliente(Integer idCliente);
 
+    public ResponseEntity<ClienteResponseRest> buscarClientePorNit(String nitCliente);
+
 }
