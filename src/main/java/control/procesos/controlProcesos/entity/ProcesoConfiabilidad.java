@@ -20,20 +20,20 @@ public class ProcesoConfiabilidad {
     private Cliente cliente;
 
     @Column(name = "nombre")
-    private String nombre;
+    private String nombre; //ok
 
     @Column(name = "apellido")
-    private String apellido;
+    private String apellido; //ok
 
     @Column(name = "identificacion")
-    private String identificacion;
+    private String identificacion; //ok
 
     @Column(name = "telefono")
-    private String telefono;
+    private String telefono; //ok
 
     @ManyToOne
     @JoinColumn(name = "fk_documento_maestro")
-    private DocumentoMaestro documentoMaestro;
+    private DocumentoMaestro documentoMaestro; //ok
 
     @ManyToOne
     @JoinColumn(name = "fk_concepto")
@@ -63,5 +63,13 @@ public class ProcesoConfiabilidad {
 
     @Column(name = "nombre_archivo")
     private String nombreArchivo;
+
+    @Column(name = "direccion")
+    private String direccion; //ok
+
+    @ManyToOne
+    @JoinColumn(name = "fk_ciudad_municipio") //ok
+    CiudadMunicipio ciudadMunicipio;
+
 
 }

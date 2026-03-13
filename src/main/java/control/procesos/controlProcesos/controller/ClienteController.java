@@ -37,4 +37,12 @@ public class ClienteController {
         ResponseEntity<ClienteResponseRest> clienteResponseRest = iClienteService.eliminarCliente(idCliente);
         return clienteResponseRest;
     }
+
+    @GetMapping("cliente/{nitCliente}")
+    public ResponseEntity<ClienteResponseRest> buscarCliente(@PathVariable String nitCliente) {
+        ResponseEntity<ClienteResponseRest> clienteResponseRest = iClienteService.buscarClientePorNit(nitCliente);
+        return clienteResponseRest;
+    }
+
+
 }

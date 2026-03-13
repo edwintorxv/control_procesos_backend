@@ -12,4 +12,6 @@ public interface IClienteRespository extends JpaRepository<Cliente, Integer> {
     @Query(value = "SELECT * FROM cliente cl WHERE cl.nit =:nitCliente", nativeQuery = true)
     Optional<Cliente> validacionExisteCliente(@Param("nitCliente") String nitCliente);
 
+
+
 }

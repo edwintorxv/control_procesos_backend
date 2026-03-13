@@ -97,12 +97,16 @@ public class ClienteServiceImpl implements IClienteService {
 
                 clienteResponseRest.getClienteResponse().setLstCliente(lstCliente);
                 clienteResponseRest.getClienteResponse().setLstCliente(lstCliente);
-                clienteResponseRest.setMetadata(MensajesConstantes.RESPUESTA_OK, MensajesConstantes.RESPUESTA_CODIGO_OK,
+                clienteResponseRest.setMetadata(
+                        MensajesConstantes.RESPUESTA_OK,
+                        MensajesConstantes.RESPUESTA_CODIGO_OK,
                         MensajesConstantes.RESPUESTA_EDICION_OK);
 
                 return new ResponseEntity<ClienteResponseRest>(clienteResponseRest, HttpStatus.OK);
             } else {
-                clienteResponseRest.setMetadata(MensajesConstantes.RESPUESTA_FALLIDA, MensajesConstantes.RESPUESTA_CODIGO_ERROR,
+                clienteResponseRest.setMetadata(
+                        MensajesConstantes.RESPUESTA_FALLIDA,
+                        MensajesConstantes.RESPUESTA_CODIGO_ERROR,
                         MensajesConstantes.RESPUESTA_DESCRIPCION_FALLIDA);
                 return new ResponseEntity<ClienteResponseRest>(clienteResponseRest, HttpStatus.BAD_REQUEST);
             }
@@ -137,6 +141,39 @@ public class ClienteServiceImpl implements IClienteService {
             return new ResponseEntity<ClienteResponseRest>(clienteResponseRest, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @Override
+    public ResponseEntity<ClienteResponseRest> buscarClientePorNit(String nitCliente) {
+        ClienteResponseRest clienteResponseRest = new ClienteResponseRest();
+
+        try {
+            Optional<Cliente> opCliente = iClienteRespository.validacionExisteCliente (nitCliente);
+
+            if (opCliente.isPresent()) {
+                clienteResponseRest.getClienteResponse().setCliente(opCliente.get());
+                clienteResponseRest.setMetadata(
+                        MensajesConstantes.RESPUESTA_OK,
+                        MensajesConstantes.RESPUESTA_CODIGO_OK,
+                        MensajesConstantes.RESPUESTA_DESCRIPCION_OK);
+                return new ResponseEntity<ClienteResponseRest>(clienteResponseRest, HttpStatus.OK);
+            }else{
+                clienteResponseRest.setMetadata(
+                        MensajesConstantes.RESPUESTA_FALLIDA,
+                        MensajesConstantes.RESPUESTA_CODIGO_ERROR,
+                        MensajesConstantes.RESPUESTA_DESCRIPCION_FALLIDA);
+                return new ResponseEntity<ClienteResponseRest>(clienteResponseRest, HttpStatus.OK);
+            }
+
+        } catch (Exception e) {
+            clienteResponseRest.setMetadata(
+                    MensajesConstantes.RESPUESTA_FALLIDA,
+                    MensajesConstantes.RESPUESTA_CODIGO_ERROR,
+                    MensajesConstantes.RESPUESTA_CREACION_FALLIDA);
+
+            return new ResponseEntity<ClienteResponseRest>(clienteResponseRest, HttpStatus.BAD_REQUEST);
+        }
+    }
+
 
     private void dataCliente(Cliente destinoCliente, Cliente origenCliente) {
 

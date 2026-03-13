@@ -14,31 +14,38 @@ public class ProcesoConfiabilidadController {
     @Autowired
     private IProcesoConfiabilidadService iProcesoConfiabilidadService;
 
-    @PostMapping("/procesoConfiabilidad")
+    @PostMapping("/procesoConfiabilidad/crearProceso")
     public ResponseEntity<ProcesoConfiabilidadResponseRest> crearProcesoConfiabilidad(@RequestBody ProcesoConfiabilidad procesoConfiabilidad) {
         ResponseEntity<ProcesoConfiabilidadResponseRest> procesoConfiabilidadResponseRest;
         procesoConfiabilidadResponseRest = iProcesoConfiabilidadService.crearProcesoConfiabilidad(procesoConfiabilidad);
         return procesoConfiabilidadResponseRest;
     }
 
-    @GetMapping("/procesoConfiabilidad/{estadoProceso}")
+    @GetMapping("/procesoConfiabilidad/buscarPorEstado/{estadoProceso}")
     public ResponseEntity<ProcesoConfiabilidadResponseRest> lstProcesosConfiabilidad(@PathVariable String estadoProceso) {
         ResponseEntity<ProcesoConfiabilidadResponseRest> procesoConfiabilidadResponseRest;
         procesoConfiabilidadResponseRest = iProcesoConfiabilidadService.lstProcesoConfiabilidadPorEstado(estadoProceso);
         return procesoConfiabilidadResponseRest;
     }
 
-    @PutMapping("/procesoConfiabilidad/{idProceso}")
+    @PutMapping("/procesoConfiabilidad/actualizarProceso/{idProceso}")
     public ResponseEntity<ProcesoConfiabilidadResponseRest> editarProcesConfiabilidad(@RequestBody ProcesoConfiabilidad procesoConfiabilidad, @PathVariable Integer idProceso) {
         ResponseEntity<ProcesoConfiabilidadResponseRest> procesoConfiabilidadResponseRest;
         procesoConfiabilidadResponseRest = iProcesoConfiabilidadService.editarProcesoConfiabilidad(procesoConfiabilidad, idProceso);
         return procesoConfiabilidadResponseRest;
     }
 
-    @GetMapping("/procesoConfiabilidadCliente/{idCliente}")
+    @GetMapping("/procesoConfiabilidad/buscarPorCliente/{idCliente}")
     public ResponseEntity<ProcesoConfiabilidadResponseRest> lstProcesosConfiabilidad(@PathVariable Integer idCliente) {
         ResponseEntity<ProcesoConfiabilidadResponseRest> procesoConfiabilidadResponseRest;
         procesoConfiabilidadResponseRest = iProcesoConfiabilidadService.lsrProcesoConfiabilidadPorCliente(idCliente);
+        return procesoConfiabilidadResponseRest;
+    }
+
+    @GetMapping("/procesoConfiabilidad/buscarProceso/{idProceso}")
+    public ResponseEntity<ProcesoConfiabilidadResponseRest> lsturlProceso(@PathVariable Integer idProceso) {
+        ResponseEntity<ProcesoConfiabilidadResponseRest> procesoConfiabilidadResponseRest;
+        procesoConfiabilidadResponseRest = iProcesoConfiabilidadService.buscarProcesoPorId(idProceso);
         return procesoConfiabilidadResponseRest;
     }
 

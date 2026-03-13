@@ -14,4 +14,6 @@ public interface IProcesoConfiabilidadService {
 
     public ResponseEntity<ProcesoConfiabilidadResponseRest> lsrProcesoConfiabilidadPorCliente(Integer fkCliente);
 
+    public ResponseEntity<ProcesoConfiabilidadResponseRest> buscarProcesoPorId(Integer idProceso);
+
 }
