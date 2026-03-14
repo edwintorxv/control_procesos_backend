@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/controlProcesos")
 public class ProcesoConfiabilidadController {
@@ -22,7 +24,7 @@ public class ProcesoConfiabilidadController {
     }
 
     @GetMapping("/procesoConfiabilidad/buscarPorEstado/{estadoProceso}")
-    public ResponseEntity<ProcesoConfiabilidadResponseRest> lstProcesosConfiabilidad(@PathVariable String estadoProceso) {
+    public ResponseEntity<ProcesoConfiabilidadResponseRest> lstProcesosConfiabilidad(@PathVariable List<String> estadoProceso) {
         ResponseEntity<ProcesoConfiabilidadResponseRest> procesoConfiabilidadResponseRest;
         procesoConfiabilidadResponseRest = iProcesoConfiabilidadService.lstProcesoConfiabilidadPorEstado(estadoProceso);
         return procesoConfiabilidadResponseRest;
@@ -46,6 +48,13 @@ public class ProcesoConfiabilidadController {
     public ResponseEntity<ProcesoConfiabilidadResponseRest> lsturlProceso(@PathVariable Integer idProceso) {
         ResponseEntity<ProcesoConfiabilidadResponseRest> procesoConfiabilidadResponseRest;
         procesoConfiabilidadResponseRest = iProcesoConfiabilidadService.buscarProcesoPorId(idProceso);
+        return procesoConfiabilidadResponseRest;
+    }
+
+    @GetMapping("/procesoConfiabilidad/buscarProcesoPorCedula/{cedulaEvaluado}")
+    public ResponseEntity<ProcesoConfiabilidadResponseRest> lsturlProceso(@PathVariable String cedulaEvaluado) {
+        ResponseEntity<ProcesoConfiabilidadResponseRest> procesoConfiabilidadResponseRest;
+        procesoConfiabilidadResponseRest = iProcesoConfiabilidadService.buscarPorCedulaEvaluado(cedulaEvaluado);
         return procesoConfiabilidadResponseRest;
     }
 
