@@ -20,8 +20,8 @@ public interface IProcesoConfiabilidadRepository extends JpaRepository<ProcesoCo
                                                               @Param("idDocumentoMaestro") Integer idDocumentoMaestro);
 
 
-    @Query(value = "SELECT * FROM proceso_confiabilidad WHERE estado_proceso =:estadoProceso", nativeQuery = true)
-    List<ProcesoConfiabilidad> lstProcesoConfiabilidadPendiente(@Param("estadoProceso") String estadoProceso);
+    @Query(value = "SELECT * FROM proceso_confiabilidad WHERE estado_proceso IN:estadoProceso", nativeQuery = true)
+    List<ProcesoConfiabilidad> lstProcesoConfiabilidadPendiente(@Param("estadoProceso") List<String> estadoProceso);
 
 
     @Query(value = "SELECT * FROM proceso_confiabilidad WHERE fk_cliente =:idCliente", nativeQuery = true)
@@ -30,5 +30,7 @@ public interface IProcesoConfiabilidadRepository extends JpaRepository<ProcesoCo
     @Query(value = "SELECT * FROM proceso_confiabilidad WHERE id =:idProceso", nativeQuery = true)
     List<ProcesoConfiabilidad> lstUrlProceso(@Param("idProceso") Integer idProceso);
 
+    @Query(value = "SELECT * FROM proceso_confiabilidad WHERE identificacion=:cedulaEvaluado", nativeQuery = true)
+    List<ProcesoConfiabilidad> procesoPorCedula(@Param("cedulaEvaluado") String cedulaEvaluado);
 
 }
