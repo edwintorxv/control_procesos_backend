@@ -161,7 +161,7 @@ public class ClienteServiceImpl implements IClienteService {
                         MensajesConstantes.RESPUESTA_FALLIDA,
                         MensajesConstantes.RESPUESTA_CODIGO_ERROR,
                         MensajesConstantes.RESPUESTA_DESCRIPCION_FALLIDA);
-                return new ResponseEntity<ClienteResponseRest>(clienteResponseRest, HttpStatus.OK);
+                return new ResponseEntity<ClienteResponseRest>(clienteResponseRest, HttpStatus.NOT_FOUND);
             }
 
         } catch (Exception e) {
