@@ -2,6 +2,7 @@ package control.procesos.controlProcesos.service;
 
 import control.procesos.controlProcesos.entity.ProcesoConfiabilidad;
 import control.procesos.controlProcesos.response.ProcesoConfiabilidadResponseRest;
+import org.apache.catalina.connector.Response;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -19,5 +20,7 @@ public interface IProcesoConfiabilidadService {
     public ResponseEntity<ProcesoConfiabilidadResponseRest> buscarProcesoPorId(Integer idProceso);
 
     public ResponseEntity<ProcesoConfiabilidadResponseRest> buscarPorCedulaEvaluado(String cedulaEvaluado);
+
+    public ResponseEntity<ProcesoConfiabilidadResponseRest> editarRutaArchivo(Integer idProceso, String urlArchivo);
 
 }

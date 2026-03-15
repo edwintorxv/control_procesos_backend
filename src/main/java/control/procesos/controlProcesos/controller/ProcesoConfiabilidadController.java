@@ -58,4 +58,12 @@ public class ProcesoConfiabilidadController {
         return procesoConfiabilidadResponseRest;
     }
 
+    @PutMapping("/procesoConfiabilidad/actualizarUrlArchivo/{idProceso}")
+    public ResponseEntity<ProcesoConfiabilidadResponseRest> editarUrlArchivo(@PathVariable Integer idProceso,
+                                                                             @RequestParam String urlArchivo) {
+        ResponseEntity<ProcesoConfiabilidadResponseRest> procesoConfiabilidadResponseRest;
+        procesoConfiabilidadResponseRest = iProcesoConfiabilidadService.editarRutaArchivo(idProceso, urlArchivo);
+        return procesoConfiabilidadResponseRest;
+    }
+
 }
