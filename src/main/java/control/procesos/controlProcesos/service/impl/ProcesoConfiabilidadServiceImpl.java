@@ -185,6 +185,39 @@ public class ProcesoConfiabilidadServiceImpl implements IProcesoConfiabilidadSer
         }
     }
 
+    @Override
+    public ResponseEntity<ProcesoConfiabilidadResponseRest> editarRutaArchivo(Integer idProceso, String urlArchivo) {
+        ProcesoConfiabilidadResponseRest procesoConfiabilidadResponseRest = new ProcesoConfiabilidadResponseRest();
+
+        try {
+            Optional<ProcesoConfiabilidad> optionalProcesoConfiabilidad = iProcesoConfiabilidadRepository.findById(idProceso);
+
+            if (optionalProcesoConfiabilidad.isPresent()) {
+
+                ProcesoConfiabilidad editarProcesoConfiabilidad = optionalProcesoConfiabilidad.get();
+                editarProcesoConfiabilidad.setUrlArchivo(urlArchivo);
+
+                iProcesoConfiabilidadRepository.save(editarProcesoConfiabilidad);
+
+                procesoConfiabilidadResponseRest.setMetadata(
+                        MensajesConstantes.RESPUESTA_OK,
+                        MensajesConstantes.RESPUESTA_CODIGO_OK,
+                        MensajesConstantes.RESPUESTA_EDICION_OK);
+                return new ResponseEntity<ProcesoConfiabilidadResponseRest>(procesoConfiabilidadResponseRest, HttpStatus.OK);
+            } else {
+                procesoConfiabilidadResponseRest.setMetadata(
+                        MensajesConstantes.RESPUESTA_FALLIDA,
+                        MensajesConstantes.RESPUESTA_CODIGO_ERROR,
+                        MensajesConstantes.RESPUESTA_DESCRIPCION_FALLIDA);
+                return new ResponseEntity<ProcesoConfiabilidadResponseRest>(procesoConfiabilidadResponseRest, HttpStatus.BAD_REQUEST);
+            }
+        } catch (Exception e) {
+            procesoConfiabilidadResponseRest.setMetadata(MensajesConstantes.RESPUESTA_FALLIDA, MensajesConstantes.RESPUESTA_CODIGO_ERROR,
+                    MensajesConstantes.RESPUESTA_CREACION_FALLIDA + " " + e.getCause());
+            return new ResponseEntity<ProcesoConfiabilidadResponseRest>(procesoConfiabilidadResponseRest, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     private void dataProcesoConfiabilidad(ProcesoConfiabilidad procesoConfiabilidadDestino, ProcesoConfiabilidad procesoConfiabilidadOrigen) {
 
         procesoConfiabilidadDestino.setCliente(procesoConfiabilidadOrigen.getCliente());
